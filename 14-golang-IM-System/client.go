@@ -61,13 +61,14 @@ func (client *Client) PublicChat() {
 	fmt.Scanln(&chatMsg)
 
 	for chatMsg != "exit" {
-		sendMSg := chatMsg + "\n"
-		_, err := client.conn.Write([]byte(sendMSg))
-		if err != nil {
-			fmt.Println("conn Write err:", err)
-			break
+		if len(chatMsg) != 0 {
+			sendMSg := chatMsg + "\n"
+			_, err := client.conn.Write([]byte(sendMSg))
+			if err != nil {
+				fmt.Println("conn Write err:", err)
+				break
+			}
 		}
-
 		chatMsg = ""
 		fmt.Println(">>> 请输入聊天内容， exit退出")
 		fmt.Scanln(&chatMsg)
@@ -109,7 +110,7 @@ func (client *Client) PrivateChat() {
 
 	for remoteName != "exit" {
 		fmt.Println(">>> 请输入消息内容， exit退出")
-		fmt.Scanln(chatMsg)
+		fmt.Scanln(&chatMsg)
 
 		for chatMsg != "exit" {
 			if len(chatMsg) != 0 {
@@ -192,6 +193,7 @@ func main() {
 		return
 	}
 
+	//单独处理，服务器回复给客户端的消息
 	go client.DealResponse()
 
 	fmt.Println(" >>> 链接服务器成功...")

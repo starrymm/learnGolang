@@ -113,7 +113,7 @@ func (this *User) Domessage(msg string) {
 			this.SendMsg("无消息内容，请重发")
 			return
 		}
-		remoteUser.SendMsg(this.Name + "对您说：" + content)
+		remoteUser.SendMsg(this.Name + "对您说：" + content + "\n")
 	} else {
 		this.server.BroadCast(this, msg)
 	}

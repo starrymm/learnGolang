@@ -95,7 +95,7 @@ func (this *Server) Handler(conn net.Conn) {
 			//当前用户是活跃的，应该重置定时器
 			//不做任何事情，为了激活计时器
 
-		case <-time.After(time.Second * 60):
+		case <-time.After(time.Second * 120):
 			//已经超时
 			//将当前的User强制关闭
 			user.SendMsg("你被T了")
